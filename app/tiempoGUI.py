@@ -45,27 +45,27 @@ class TiempoApp:
 
         # Tarjeta central
         self.card = tk.Frame(root, bg=self.config["card_bg"], bd=0, relief="flat")
-        self.card.place(relx=0.5, rely=0.5, anchor="center", width=400, height=400)
+        self.card.place(relx=0.5, rely=0.5, anchor="center", width=600, height=600)
 
         # Título
         self.titulo = tk.Label(self.card, text="Consulta del Clima", font=FONT_TITLE,
-                               fg=self.config["text"], bg=self.config["card_bg"])
+                            fg=self.config["text"], bg=self.config["card_bg"])
         self.titulo.pack(pady=(30, 15))
 
         # Selector ciudad
         self.lbl_ciudad = tk.Label(self.card, text="Selecciona una ciudad", font=FONT_SUBTITLE,
-                                   fg=self.config["subtext"], bg=self.config["card_bg"])
+                            fg=self.config["subtext"], bg=self.config["card_bg"])
         self.lbl_ciudad.pack()
         ciudades = ["Madrid", "Sevilla", "Valencia", "Barcelona", "Asturias", "León"]
         self.combo = ttk.Combobox(self.card, values=ciudades, state="readonly", width=30,
-                                  font=("Segoe UI", 11))
+                            font=("Segoe UI", 11))
         self.combo.pack(pady=10)
 
         # Botones consultar y toggle modo
         self.btn_consultar = tk.Button(self.card, text="Consultar Clima", command=self.mostrar_datos,
-                                       bg=self.config["boton_bg"], fg=self.config["boton_fg"],
-                                       font=("Segoe UI", 11, "bold"), relief="flat",
-                                       cursor="hand2", padx=10, pady=7)
+                                    bg=self.config["boton_bg"], fg=self.config["boton_fg"],
+                                    font=("Segoe UI", 11, "bold"), relief="flat",
+                                    cursor="hand2", padx=10, pady=7)
         self.btn_consultar.pack(pady=15)
 
         self.btn_toggle = tk.Button(self.card, text="Modo Oscuro 🌙", command=self.toggle_modo,
@@ -77,8 +77,8 @@ class TiempoApp:
         # Resultado con animación fade-in
         self.resultado = tk.StringVar()
         self.lbl_resultado = tk.Label(self.card, textvariable=self.resultado, font=FONT_RESULT,
-                                     fg=self.config["text"], bg=self.config["card_bg"], justify="left",
-                                     wraplength=350)
+                                    fg=self.config["text"], bg=self.config["card_bg"], justify="left",
+                                    wraplength=350)
         self.lbl_resultado.pack(pady=(25, 20))
 
         # Variables para animar texto
