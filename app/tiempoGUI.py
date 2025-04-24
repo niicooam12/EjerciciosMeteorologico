@@ -36,3 +36,7 @@ resultado = tk.StringVar()
 tk.Label(ventana, textvariable=resultado, justify="left", font=("Arial", 10)).pack(pady=10)
 
 ventana.mainloop()
+
+
+if __name__ == "__main__":
+    ventana.mainloop()
