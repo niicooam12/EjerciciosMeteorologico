@@ -37,6 +37,9 @@ tk.Label(ventana, textvariable=resultado, justify="left", font=("Arial", 10)).pa
 
 ventana.mainloop()
 
+def iniciar_app():
+    ventana.mainloop()
 
 if __name__ == "__main__":
-    ventana.mainloop()
+    iniciar_app()
+
