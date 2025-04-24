@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from tiempo import Tiempo  # Asumiendo que el archivo se llama tiempo.py
+from tiempo import Tiempo
 
 def mostrar_datos():
     ciudad = combo_ciudades.get()
