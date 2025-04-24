@@ -2,66 +2,67 @@ import tkinter as tk
 from tkinter import ttk
 from app.tiempo import Tiempo
 
-# 🎨 Paleta de colores
-COLOR_BG = "#ecf0f3"
-COLOR_TARJETA = "#ffffff"
-COLOR_TEXTO = "#2c3e50"
-COLOR_TITULO = "#34495e"
-COLOR_BOTON = "#3498db"
-COLOR_BOTON_TEXTO = "#ffffff"
-COLOR_BORDE = "#dcdde1"
+COLOR_BG = "#eaf0f6"
+COLOR_CARD = "#ffffff"
+COLOR_ACCENT = "#4a90e2"
+COLOR_TEXT = "#2d3436"
+COLOR_SUBTEXT = "#636e72"
+FONT_TITLE = ("Segoe UI", 16, "bold")
+FONT_SUBTITLE = ("Segoe UI", 10)
+FONT_RESULT = ("Consolas", 11)
 
 def mostrar_datos():
-    ciudad = combo_ciudades.get()
+    ciudad = combo.get()
     if ciudad:
-        clima = Tiempo(ciudad)
-        datos = clima.obtener_datos()
+        tiempo = Tiempo(ciudad)
+        datos = tiempo.obtener_datos()
+
         icono_lluvia = "🌧️" if datos['lluvia'] else "🌤️"
         icono_sol = "☀️" if datos['soleado'] else "🌥️"
 
         resultado.set(
-            f"📍 Ciudad: {datos['ciudad']}\n"
-            f"{icono_sol} Máxima: {datos['temperatura_maxima']}°C\n"
+            f"📍 {datos['ciudad']}\n\n"
+            f"🌡️ Máxima: {datos['temperatura_maxima']}°C\n"
             f"❄️ Mínima: {datos['temperatura_minima']}°C\n"
             f"{icono_lluvia} ¿Llueve?: {'Sí' if datos['lluvia'] else 'No'}\n"
-            f"☀️ ¿Soleado?: {'Sí' if datos['soleado'] else 'No'}"
+            f"{icono_sol} ¿Soleado?: {'Sí' if datos['soleado'] else 'No'}"
         )
 
 def iniciar_app():
-    global combo_ciudades, resultado
+    global combo, resultado
 
     ventana = tk.Tk()
-    ventana.title("🌦️ Tiempo Visual")
-    ventana.geometry("450x400")
-    ventana.config(bg=COLOR_BG)
+    ventana.title("🌦️ Tiempo App")
+    ventana.geometry("440x420")
+    ventana.configure(bg=COLOR_BG)
+    ventana.resizable(False, False)
 
-    # Título superior
-    titulo = tk.Label(ventana, text="Consulta del Clima 🌤️", font=("Helvetica", 18, "bold"), fg=COLOR_TITULO, bg=COLOR_BG)
-    titulo.pack(pady=20)
+    # Card principal
+    card = tk.Frame(ventana, bg=COLOR_CARD, bd=0, relief="flat")
+    card.place(relx=0.5, rely=0.5, anchor="center", width=380, height=360)
 
-    # Tarjeta principal (como un widget de info)
-    tarjeta = tk.LabelFrame(ventana, text="Datos Climáticos", font=("Arial", 12, "bold"), bg=COLOR_TARJETA, bd=2, fg=COLOR_TITULO, labelanchor='n')
-    tarjeta.pack(padx=20, pady=10, fill="both", expand=True)
+    # Título
+    tk.Label(card, text="Consulta del Clima", font=FONT_TITLE, fg=COLOR_TEXT, bg=COLOR_CARD).pack(pady=(20, 10))
 
-    # Ciudad
-    tk.Label(tarjeta, text="Selecciona una ciudad:", bg=COLOR_TARJETA, fg=COLOR_TEXTO, font=("Arial", 10)).pack(pady=(15, 5))
+    # Selector ciudad
+    tk.Label(card, text="Selecciona una ciudad", font=FONT_SUBTITLE, fg=COLOR_SUBTEXT, bg=COLOR_CARD).pack()
     ciudades = ["Madrid", "Sevilla", "Valencia", "Barcelona", "Asturias", "León"]
-    combo_ciudades = ttk.Combobox(tarjeta, values=ciudades, state="readonly", width=30)
-    combo_ciudades.pack(pady=5)
+    combo = ttk.Combobox(card, values=ciudades, state="readonly", width=28, font=("Segoe UI", 10))
+    combo.pack(pady=5)
 
-    # Botón
-    boton = tk.Button(tarjeta, text="🌍 Consultar", command=mostrar_datos,
-                    bg=COLOR_BOTON, fg=COLOR_BOTON_TEXTO,
-                    font=("Arial", 10, "bold"), relief="flat", cursor="hand2")
-    boton.pack(pady=15)
+    # Botón consultar
+    boton = tk.Button(card, text="Consultar Clima", command=mostrar_datos,
+                      bg=COLOR_ACCENT, fg="white", activebackground="#3b7bd5",
+                      font=("Segoe UI", 10, "bold"), relief="flat", cursor="hand2", padx=10, pady=5)
+    boton.pack(pady=20)
 
-    # Resultado visual
+    # Resultado
     resultado = tk.StringVar()
-    resultado_label = tk.Label(tarjeta, textvariable=resultado, bg=COLOR_TARJETA, fg=COLOR_TEXTO,
-                        font=("Courier New", 10), justify="left", wraplength=300)
-    resultado_label.pack(pady=(5, 20))
+    resultado_label = tk.Label(card, textvariable=resultado, font=FONT_RESULT, fg=COLOR_TEXT, bg=COLOR_CARD, justify="left")
+    resultado_label.pack(pady=(5, 10))
 
     ventana.mainloop()
+
 
 if __name__ == "__main__":
     iniciar_app()
