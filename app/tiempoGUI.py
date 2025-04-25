@@ -1,6 +1,6 @@
+from app.tiempo import Tiempo
 import tkinter as tk
 from tkinter import ttk
-from app.tiempo import Tiempo
 from datetime import datetime
 import random
 
@@ -159,7 +159,7 @@ class TiempoApp:
             self.animar_texto = True
             self.texto_para_animar = texto
             self._fade_in_text()
-            
+
     def _fade_in_text(self):
         if not self.animar_texto:
             return
