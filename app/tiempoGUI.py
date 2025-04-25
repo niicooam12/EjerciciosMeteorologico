@@ -136,7 +136,9 @@ class TiempoApp:
             dia = random.randint(1, 28)  # Para simplificar, usamos 28 días
             mes = random.randint(1, 12)
             fecha_random = datetime(2025, mes, dia)  # Año fijo para consistencia
-            estacion = Tiempo.obtener_estacion(fecha_random)
+
+            # Llamar al método obtener_estacion desde la instancia
+            estacion = tiempo.obtener_estacion(fecha_random)
 
             icono_lluvia = "🌧️" if datos['lluvia'] else "🌤️"
             icono_sol = "☀️" if datos['soleado'] else "🌥️"
@@ -157,7 +159,7 @@ class TiempoApp:
             self.animar_texto = True
             self.texto_para_animar = texto
             self._fade_in_text()
-
+            
     def _fade_in_text(self):
         if not self.animar_texto:
             return
