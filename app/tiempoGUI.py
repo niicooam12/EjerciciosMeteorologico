@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from app.tiempo import Tiempo
+from datetime import datetime
+import random
 
 MODOS = {
     "claro": {
@@ -36,7 +38,6 @@ class TiempoApp:
         self.root.title("🌦️ Tiempo Pro")
         self.root.geometry("480x480")
         self.root.resizable(False, False)
-        # Icono con emoji en título, no .ico para no complicar
 
         # Canvas para fondo con gradiente simple simulado
         self.canvas = tk.Canvas(root, highlightthickness=0)
@@ -130,6 +131,13 @@ class TiempoApp:
         if ciudad:
             tiempo = Tiempo(ciudad)
             datos = tiempo.obtener_datos()
+
+            # Generar una fecha aleatoria
+            dia = random.randint(1, 28)  # Para simplificar, usamos 28 días
+            mes = random.randint(1, 12)
+            fecha_random = datetime(2025, mes, dia)  # Año fijo para consistencia
+            estacion = Tiempo.obtener_estacion(fecha_random)
+
             icono_lluvia = "🌧️" if datos['lluvia'] else "🌤️"
             icono_sol = "☀️" if datos['soleado'] else "🌥️"
 
@@ -138,7 +146,9 @@ class TiempoApp:
                 f"🌡️ Máxima: {datos['temperatura_maxima']}°C\n"
                 f"❄️ Mínima: {datos['temperatura_minima']}°C\n"
                 f"{icono_lluvia} ¿Llueve?: {'Sí' if datos['lluvia'] else 'No'}\n"
-                f"{icono_sol} ¿Soleado?: {'Sí' if datos['soleado'] else 'No'}"
+                f"{icono_sol} ¿Soleado?: {'Sí' if datos['soleado'] else 'No'}\n\n"
+                f"📅 Fecha: {fecha_random.strftime('%d/%m/%Y')}\n"
+                f"🍂 Estación: {estacion}"
             )
 
             # Animación fade-in de texto resultado
